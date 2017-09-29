@@ -17,22 +17,49 @@
 package com.alibaba.rocketmq.remoting.netty;
 
 /**
-
- *
- * @author shijia.wxr
- *
+ * 通信服务配置类
  */
 public class NettyServerConfig implements Cloneable {
-    private int listenPort = 8888;
-    private int serverWorkerThreads = 8;
-    private int serverCallbackExecutorThreads = 0;
-    private int serverSelectorThreads = 3;
-    private int serverOnewaySemaphoreValue = 256;
-    private int serverAsyncSemaphoreValue = 64;
-    private int serverChannelMaxIdleTimeSeconds = 120;
 
+    /**
+     * 监听端口
+     */
+    private int listenPort = 8888;
+    /**
+     * Netty服务工作线程数量
+     */
+    private int serverWorkerThreads = 8;
+    /**
+     * Netty服务异步调用线程池数量
+     */
+    private int serverCallbackExecutorThreads = 0;
+    /**
+     * Netty Selector 线程数量
+     */
+    private int serverSelectorThreads = 3;
+    /**
+     * 控制单向的信号量 一次请求没有响应
+     */
+    private int serverOnewaySemaphoreValue = 256;
+    /**
+     * 控制异步信号量
+     */
+    private int serverAsyncSemaphoreValue = 64;
+    /**
+     * 控制异步信号量
+     */
+    private int serverChannelMaxIdleTimeSeconds = 120;
+    /**
+     * Netty发送缓冲区大小
+     */
     private int serverSocketSndBufSize = NettySystemConfig.socketSndbufSize;
+    /**
+     * Netty发送缓冲区大小
+     */
     private int serverSocketRcvBufSize = NettySystemConfig.socketRcvbufSize;
+    /**
+     * 是否使用Netty内存池
+     */
     private boolean serverPooledByteBufAllocatorEnable = true;
 
     /**

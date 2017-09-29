@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 
 /**
- * @author shijia.wxr
+ * 配置信息表 主要用于信息传输
  */
 public class KVConfigSerializeWrapper extends RemotingSerializable {
     private HashMap<String/* Namespace */, HashMap<String/* Key */, String/* Value */>> configTable;

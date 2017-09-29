@@ -35,9 +35,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-
 /**
- * @author shijia.wxr
+ * Namesrv 服务控制类
  */
 public class NamesrvController {
     private static final Logger log = LoggerFactory.getLogger(LoggerName.NamesrvLoggerName);
@@ -46,15 +45,27 @@ public class NamesrvController {
 
     private final NettyServerConfig nettyServerConfig;
 
+    /**
+     * 单线程池，此线程用来启动namesrc，启动之后还有2个定时线程来scanNotActiveBroker（清理不生效broker）和printAllPeriodically（打印每个namesrv的配置表）
+     */
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new ThreadFactoryImpl(
             "NSScheduledThread"));
+
+    /**
+     * namesrv配置管理器，容器为HashMap<String(Namespace), HashMap<String(Key), String(Value)>> configTable，ReadWriteLock保证读写安全
+     */
     private final KVConfigManager kvConfigManager;
+
+    //所有运行数据管理器，topicqueuetable、brokeraddrtable等，信息量很多，ReadWriteLock保证读写安全
     private final RouteInfoManager routeInfoManager;
 
+    //服务启动接口，这里传入的是NettyRemotingServer，用netty启动，是rocketmq remoting模块，包括注册请求处理器DefaultRequestProcessor，以及几种数据传输方式invokeSync、invokeAsync、invokeOneway等
     private RemotingServer remotingServer;
 
+    //Broker事件监听器，属于netty概念，监听chanel 4个动作事件，提供处理方法
     private BrokerHousekeepingService brokerHousekeepingService;
 
+    //remotingServer的并发处理器，处理各种类型请求
     private ExecutorService remotingExecutor;
 
 
@@ -66,21 +77,19 @@ public class NamesrvController {
         this.brokerHousekeepingService = new BrokerHousekeepingService(this);
     }
 
-
+    //服务控制器 初始化
     public boolean initialize() {
-
+        //加载kvConfig.json至KVConfigManager的configTable，即持久化转移到内存
         this.kvConfigManager.load();
-
-
+        //将namesrv作为一个netty server启动
         this.remotingServer = new NettyRemotingServer(this.nettyServerConfig, this.brokerHousekeepingService);
-
-
+        //启动请求处理线程池
         this.remotingExecutor =
                 Executors.newFixedThreadPool(nettyServerConfig.getServerWorkerThreads(), new ThreadFactoryImpl("RemotingExecutorThread_"));
-
+        //注册默认DefaultRequestProcessor和remotingExecutor，等start启动即开始处理netty请求
         this.registerProcessor();
 
-
+        //每10s检查2分钟接受不到心跳的broker清除掉
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override
@@ -88,7 +97,7 @@ public class NamesrvController {
                 NamesrvController.this.routeInfoManager.scanNotActiveBroker();
             }
         }, 5, 10, TimeUnit.SECONDS);
-
+        //每10分钟，打印namesrv全局配置信息
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override
@@ -112,24 +121,35 @@ public class NamesrvController {
         }
     }
 
-
+    /**
+     * 服务启动
+     * @throws Exception
+     */
     public void start() throws Exception {
         this.remotingServer.start();
     }
 
-
+    /**
+     * 服务关闭
+     */
     public void shutdown() {
         this.remotingServer.shutdown();
         this.remotingExecutor.shutdown();
         this.scheduledExecutorService.shutdown();
     }
 
-
+    /**
+     * 获取名称服务配置对象
+     * @return
+     */
     public NamesrvConfig getNamesrvConfig() {
         return namesrvConfig;
     }
 
-
+    /**
+     * 获取通信服务配置对象
+     * @return
+     */
     public NettyServerConfig getNettyServerConfig() {
         return nettyServerConfig;
     }

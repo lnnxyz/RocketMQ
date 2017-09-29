@@ -32,7 +32,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 
 /**
- * @author shijia.wxr
+ * namesrv配置管理器
  */
 public class KVConfigManager {
     private static final Logger log = LoggerFactory.getLogger(LoggerName.NamesrvLoggerName);
@@ -48,7 +48,9 @@ public class KVConfigManager {
         this.namesrvController = namesrvController;
     }
 
-
+    /**
+     * 加载配置信息(从用户目录加载配置信息)
+     */
     public void load() {
         String content = MixAll.file2String(this.namesrvController.getNamesrvConfig().getKvConfigPath());
         if (content != null) {
@@ -61,7 +63,12 @@ public class KVConfigManager {
         }
     }
 
-
+    /**
+     * 添加配置信息
+     * @param namespace  命名空间
+     * @param key
+     * @param value
+     */
     public void putKVConfig(final String namespace, final String key, final String value) {
         try {
             this.lock.writeLock().lockInterruptibly();
@@ -91,6 +98,9 @@ public class KVConfigManager {
         this.persist();
     }
 
+    /**
+     * 储存 KV 信息
+     */
     public void persist() {
         try {
             this.lock.readLock().lockInterruptibly();
@@ -115,6 +125,11 @@ public class KVConfigManager {
 
     }
 
+    /**
+     * 删除  KV信息
+     * @param namespace
+     * @param key
+     */
     public void deleteKVConfig(final String namespace, final String key) {
         try {
             this.lock.writeLock().lockInterruptibly();
@@ -135,6 +150,11 @@ public class KVConfigManager {
         this.persist();
     }
 
+    /**
+     * 根据命名空间获取KV信息
+     * @param namespace
+     * @return
+     */
     public byte[] getKVListByNamespace(final String namespace) {
         try {
             this.lock.readLock().lockInterruptibly();
@@ -155,6 +175,12 @@ public class KVConfigManager {
         return null;
     }
 
+    /**
+     * 获取某些KV信息的值
+     * @param namespace
+     * @param key
+     * @return
+     */
     public String getKVConfig(final String namespace, final String key) {
         try {
             this.lock.readLock().lockInterruptibly();
@@ -173,6 +199,9 @@ public class KVConfigManager {
         return null;
     }
 
+    /**
+     * 打印所有配置KV信息
+     */
     public void printAllPeriodically() {
         try {
             this.lock.readLock().lockInterruptibly();

@@ -28,8 +28,7 @@ import java.util.concurrent.ExecutorService;
 
 
 /**
- * @author shijia.wxr
- *
+ * 远程通信服务
  */
 public interface RemotingServer extends RemotingService {
 

@@ -17,28 +17,36 @@
 package com.alibaba.rocketmq.remoting.netty;
 
 /**
- * @author shijia.wxr
- *
+ * Netty服务配置类
  */
 public class NettyClientConfig {
     /**
      * Worker thread number
      */
+    //Netty客户端工作线程
     private int clientWorkerThreads = 4;
+    //Netty服务异步回调线程池线程数量
     private int clientCallbackExecutorThreads = Runtime.getRuntime().availableProcessors();
+    //控制单向的信号量 一次请求没有响应
     private int clientOnewaySemaphoreValue = NettySystemConfig.ClientOnewaySemaphoreValue;
+    //控制异步信号量
     private int clientAsyncSemaphoreValue = NettySystemConfig.ClientAsyncSemaphoreValue;
+    //连接超时时间
     private int connectTimeoutMillis = 3000;
+    //Netty服务异步回调线程池线程数量
     private long channelNotActiveInterval = 1000 * 60;
 
     /**
      * IdleStateEvent will be triggered when neither read nor write was performed for
      * the specified period of this time. Specify {@code 0} to disable
      */
+    // 客户端闲心跳检测时间间隔 单位秒
     private int clientChannelMaxIdleTimeSeconds = 120;
-
+    //客户端发送缓冲区大小
     private int clientSocketSndBufSize = NettySystemConfig.socketSndbufSize;
+    // 客户端接受缓冲区大小
     private int clientSocketRcvBufSize = NettySystemConfig.socketRcvbufSize;
+    // 客户端接受缓冲区大小
     private boolean clientPooledByteBufAllocatorEnable = false;
     private boolean clientCloseSocketIfTimeout = false;
 

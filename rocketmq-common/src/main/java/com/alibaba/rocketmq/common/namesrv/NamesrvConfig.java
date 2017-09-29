@@ -29,12 +29,11 @@ import java.io.File;
 
 
 /**
- *
- * @author shijia.wxr
- * @author lansheng.zj
+ * Namesrv服务配置类
  */
 public class NamesrvConfig {
     private static final Logger log = LoggerFactory.getLogger(LoggerName.NamesrvLoggerName);
+    //设置ROCKETMQ_HOME的目录
     private String rocketmqHome = System.getProperty(MixAll.ROCKETMQ_HOME_PROPERTY, System.getenv(MixAll.ROCKETMQ_HOME_ENV));
 
     private String kvConfigPath = System.getProperty("user.home") + File.separator + "namesrv" + File.separator + "kvConfig.json";

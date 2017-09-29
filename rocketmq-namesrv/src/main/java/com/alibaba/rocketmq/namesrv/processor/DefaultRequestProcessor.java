@@ -54,7 +54,13 @@ public class DefaultRequestProcessor implements NettyRequestProcessor {
         this.namesrvController = namesrvController;
     }
 
-
+    /**
+     * 处理请求
+     * @param ctx
+     * @param request
+     * @return
+     * @throws RemotingCommandException
+     */
     @Override
     public RemotingCommand processRequest(ChannelHandlerContext ctx, RemotingCommand request) throws RemotingCommandException {
         if (log.isDebugEnabled()) {
@@ -109,6 +115,10 @@ public class DefaultRequestProcessor implements NettyRequestProcessor {
         return null;
     }
 
+    /**
+     * 拒绝请求
+     * @return
+     */
     @Override
     public boolean rejectRequest() {
         return false;

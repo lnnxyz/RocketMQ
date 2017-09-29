@@ -36,7 +36,14 @@ public class ServerUtil {
         return options;
     }
 
-
+    /**
+     * 命令行对象
+     * @param appName  应用名称
+     * @param args     参数
+     * @param options  命令行定义
+     * @param parser   命令行解析类
+     * @return
+     */
     public static CommandLine parseCmdLine(final String appName, String[] args, Options options,
                                            CommandLineParser parser) {
         HelpFormatter hf = new HelpFormatter();
@@ -62,7 +69,11 @@ public class ServerUtil {
         hf.printHelp(appName, options, true);
     }
 
-
+    /**
+     * 将 命令行对象 转存到  Properties对象中
+     * @param commandLine  命令行对象
+     * @return Properties
+     */
     public static Properties commandLine2Properties(final CommandLine commandLine) {
         Properties properties = new Properties();
         Option[] opts = commandLine.getOptions();
