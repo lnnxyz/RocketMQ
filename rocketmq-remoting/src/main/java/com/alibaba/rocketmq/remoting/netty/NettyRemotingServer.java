@@ -51,10 +51,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
-
- *
- * @author shijia.wxr
- *
+ * Netty 通信服务端
  */
 public class NettyRemotingServer extends NettyRemotingAbstract implements RemotingServer {
     private static final Logger log = LoggerFactory.getLogger(RemotingHelper.RemotingLogName);

@@ -20,9 +20,13 @@ import com.alibaba.rocketmq.remoting.netty.ResponseFuture;
 
 
 /**
- * @author shijia.wxr
- *
+ * 回调处理类
  */
 public interface InvokeCallback {
+
+    /**
+     * 操作完成处理类
+     * @param responseFuture
+     */
     public void operationComplete(final ResponseFuture responseFuture);
 }

@@ -30,12 +30,19 @@ import java.nio.channels.SocketChannel;
 
 
 /**
- * @author shijia.wxr
+ * 通信助手
  */
 public class RemotingHelper {
+    //日志名称
     public static final String RemotingLogName = "RocketmqRemoting";
+    //编码方式
     public static final String DEFAULT_CHARSET = "UTF-8";
 
+    /**
+     * 打印异常简单描述信息
+     * @param e
+     * @return
+     */
     public static String exceptionSimpleDesc(final Throwable e) {
         StringBuffer sb = new StringBuffer();
         if (e != null) {
@@ -52,12 +59,24 @@ public class RemotingHelper {
         return sb.toString();
     }
 
+    /**
+     * 将字符串转换为 Socket地址
+     * @param addr
+     * @return
+     */
     public static SocketAddress string2SocketAddress(final String addr) {
         String[] s = addr.split(":");
         InetSocketAddress isa = new InetSocketAddress(s[0], Integer.parseInt(s[1]));
         return isa;
     }
 
+    /**
+     * 同步通信处理方法
+     * @param addr 地址
+     * @param request 通信请求信息
+     * @param timeoutMillis  超时时间
+     * @return RemotingCommand 通信响应信息
+     */
     public static RemotingCommand invokeSync(final String addr, final RemotingCommand request,
                                              final long timeoutMillis) throws InterruptedException, RemotingConnectException,
             RemotingSendRequestException, RemotingTimeoutException {
@@ -155,7 +174,11 @@ public class RemotingHelper {
         }
     }
 
-
+    /**
+     * 获取通道的通信地址
+     * @param channel 通道
+     * @return 通道地址
+     */
     public static String parseChannelRemoteAddr(final Channel channel) {
         if (null == channel) {
             return "";
@@ -175,7 +198,11 @@ public class RemotingHelper {
         return "";
     }
 
-
+    /**
+     * 获取通道主机名称
+     * @param channel
+     * @return
+     */
     public static String parseChannelRemoteName(final Channel channel) {
         if (null == channel) {
             return "";
@@ -187,7 +214,11 @@ public class RemotingHelper {
         return "";
     }
 
-
+    /**
+     * 将 Socket地址转换为 字符串
+     * @param socketAddress
+     * @return
+     */
     public static String parseSocketAddressAddr(SocketAddress socketAddress) {
         if (socketAddress != null) {
             final String addr = socketAddress.toString();
@@ -199,7 +230,11 @@ public class RemotingHelper {
         return "";
     }
 
-
+    /**
+     * 获取 Socket 主机名称
+     * @param socketAddress
+     * @return
+     */
     public static String parseSocketAddressName(SocketAddress socketAddress) {
 
         final InetSocketAddress addrs = (InetSocketAddress) socketAddress;

@@ -21,10 +21,7 @@ import io.netty.channel.ChannelHandlerContext;
 
 
 /**
- * Common remoting command processor
- *
- * @author shijia.wxr
- *
+ * Netty 请求处理器
  */
 public interface NettyRequestProcessor {
     RemotingCommand processRequest(ChannelHandlerContext ctx, RemotingCommand request)

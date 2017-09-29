@@ -56,6 +56,11 @@ public class RemotingUtil {
         return isWindowsPlatform;
     }
 
+    /**
+     * 打开选择器
+     * @return
+     * @throws IOException
+     */
     public static Selector openSelector() throws IOException {
         Selector result = null;
 
@@ -91,6 +96,10 @@ public class RemotingUtil {
         return isLinuxPlatform;
     }
 
+    /**
+     * 获取本地地址
+     * @return
+     */
     public static String getLocalAddress() {
         try {
             // Traversal Network interface to get the first non-loopback and non-private address
@@ -147,13 +156,22 @@ public class RemotingUtil {
         }
     }
 
+    /**
+     * 字符串 转化为 Socket地址
+     * @param addr
+     * @return
+     */
     public static SocketAddress string2SocketAddress(final String addr) {
         String[] s = addr.split(":");
         InetSocketAddress isa = new InetSocketAddress(s[0], Integer.parseInt(s[1]));
         return isa;
     }
 
-
+    /**
+     * Socket地址转化为 字符串 模式
+     * @param addr
+     * @return
+     */
     public static String socketAddress2String(final SocketAddress addr) {
         StringBuilder sb = new StringBuilder();
         InetSocketAddress inetSocketAddress = (InetSocketAddress) addr;
@@ -163,12 +181,21 @@ public class RemotingUtil {
         return sb.toString();
     }
 
-
+    /**
+     * 连接 Socket 通道地址 超时默认 5 秒
+     * @param remote 地址
+     * @return
+     */
     public static SocketChannel connect(SocketAddress remote) {
         return connect(remote, 1000 * 5);
     }
 
-
+    /**
+     * 连接 Socket 通道地址
+     * @param remote 地址
+     * @param timeoutMillis 超时时间
+     * @return
+     */
     public static SocketChannel connect(SocketAddress remote, final int timeoutMillis) {
         SocketChannel sc = null;
         try {
@@ -194,7 +221,10 @@ public class RemotingUtil {
         return null;
     }
 
-
+    /**
+     * 关闭通道
+     * @param channel
+     */
     public static void closeChannel(Channel channel) {
         final String addrRemote = RemotingHelper.parseChannelRemoteAddr(channel);
         channel.close().addListener(new ChannelFutureListener() {

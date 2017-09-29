@@ -17,7 +17,7 @@
 package com.alibaba.rocketmq.remoting.common;
 
 /**
- * @author shijia.wxr
+ * 组对象
  */
 public class Pair<T1, T2> {
     private T1 object1;

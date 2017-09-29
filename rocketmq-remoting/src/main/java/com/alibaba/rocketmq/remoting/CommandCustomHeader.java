@@ -20,7 +20,7 @@ import com.alibaba.rocketmq.remoting.exception.RemotingCommandException;
 
 
 /**
- * @author shijia.wxr
+ * 通信头检查处理
  */
 public interface CommandCustomHeader {
     void checkFields() throws RemotingCommandException;

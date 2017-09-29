@@ -17,6 +17,9 @@
 
 package com.alibaba.rocketmq.remoting.protocol;
 
+/**
+ * 序列化类型 枚举类
+ */
 public enum SerializeType {
     JSON((byte) 0),
     ROCKETMQ((byte) 1);

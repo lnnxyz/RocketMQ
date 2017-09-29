@@ -19,11 +19,24 @@ package com.alibaba.rocketmq.remoting;
 
 import com.alibaba.rocketmq.remoting.protocol.RemotingCommand;
 
-
+/**
+ * 吊钩事件
+ */
 public interface RPCHook {
+
+    /**
+     * 请求之前处理
+     * @param remoteAddr 远处地址
+     * @param request 请求对象
+     */
     void doBeforeRequest(final String remoteAddr, final RemotingCommand request);
 
-
+    /**
+     * 响应之后处理
+     * @param remoteAddr  远程地址
+     * @param request   请求对象
+     * @param response  响应对象
+     */
     void doAfterResponse(final String remoteAddr, final RemotingCommand request,
                          final RemotingCommand response);
 }

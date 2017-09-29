@@ -20,16 +20,29 @@ import io.netty.channel.Channel;
 
 
 /**
- * @author shijia.wxr
- *
+ * 通道信息监听器
  */
 public interface ChannelEventListener {
+
+    /**
+     * 连接事件
+     * @param remoteAddr
+     * @param channel
+     */
     void onChannelConnect(final String remoteAddr, final Channel channel);
 
-
+    /**
+     * 关闭事件
+     * @param remoteAddr
+     * @param channel
+     */
     void onChannelClose(final String remoteAddr, final Channel channel);
 
-
+    /**
+     * 异常事件
+     * @param remoteAddr
+     * @param channel
+     */
     void onChannelException(final String remoteAddr, final Channel channel);
 
 

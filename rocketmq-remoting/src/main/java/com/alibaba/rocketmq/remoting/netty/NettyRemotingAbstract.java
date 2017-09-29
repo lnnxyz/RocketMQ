@@ -45,18 +45,17 @@ import java.util.concurrent.*;
 
 
 /**
- * @author shijia.wxr
+ * Netty 通信抽象类
  */
 public abstract class NettyRemotingAbstract {
     private static final Logger plog = LoggerFactory.getLogger(RemotingHelper.RemotingLogName);
 
-
+    //信号量
     protected final Semaphore semaphoreOneway;
-
-
+    //同步信号量
     protected final Semaphore semaphoreAsync;
 
-
+    //
     protected final ConcurrentHashMap<Integer /* opaque */, ResponseFuture> responseTable =
             new ConcurrentHashMap<Integer, ResponseFuture>(256);
 

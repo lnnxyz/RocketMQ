@@ -17,6 +17,9 @@
 
 package com.alibaba.rocketmq.remoting.protocol;
 
+/**
+ * 通信响应码
+ */
 public class RemotingSysResponseCode {
 
     public static final int SUCCESS = 0;

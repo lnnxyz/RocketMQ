@@ -17,12 +17,24 @@
 
 package com.alibaba.rocketmq.remoting;
 
+/**
+ * 远程通信服务接口
+ */
 public interface RemotingService {
+
+    /**
+     * 启动
+     */
     void start();
 
-
+    /**
+     * 关闭
+     */
     void shutdown();
 
-
+    /**
+     * 注册JVM吊钩事件
+     * @param rpcHook
+     */
     void registerRPCHook(RPCHook rpcHook);
 }

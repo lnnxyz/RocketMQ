@@ -17,6 +17,9 @@
 
 package com.alibaba.rocketmq.remoting.netty;
 
+/**
+ * Netty系统配置项
+ */
 public class NettySystemConfig {
     public static final String SystemPropertyNettyPooledByteBufAllocatorEnable =
             "com.rocketmq.remoting.nettyPooledByteBufAllocatorEnable";

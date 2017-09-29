@@ -29,8 +29,7 @@ import java.nio.ByteBuffer;
 
 
 /**
- * @author shijia.wxr
- *
+ * Netty解密
  */
 public class NettyDecoder extends LengthFieldBasedFrameDecoder {
     private static final Logger log = LoggerFactory.getLogger(RemotingHelper.RemotingLogName);

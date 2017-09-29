@@ -22,8 +22,7 @@ import java.nio.charset.Charset;
 
 
 /**
- * @author shijia.wxr
- *
+ * 通信信息序列化抽象类
  */
 public abstract class RemotingSerializable {
     public final static Charset CHARSET_UTF8 = Charset.forName("UTF-8");

@@ -21,10 +21,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**
- * @author shijia.wxr
+ * 单次信号量处理类
  */
 public class SemaphoreReleaseOnlyOnce {
     private final AtomicBoolean released = new AtomicBoolean(false);
+    //多线程信号量
     private final Semaphore semaphore;
 
 
@@ -32,7 +33,9 @@ public class SemaphoreReleaseOnlyOnce {
         this.semaphore = semaphore;
     }
 
-
+    /**
+     * 信号量释放
+     */
     public void release() {
         if (this.semaphore != null) {
             if (this.released.compareAndSet(false, true)) {

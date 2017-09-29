@@ -17,8 +17,7 @@
 package com.alibaba.rocketmq.remoting.protocol;
 
 /**
- * @author shijia.wxr
- *
+ * 通信控制类型  (请求,响应)
  */
 public enum RemotingCommandType {
     REQUEST_COMMAND,
