@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
- * @author shijia.wxr
+ * Namesrv 启动类
  */
 public class NamesrvStartup {
     public static Properties properties = null;
@@ -51,6 +51,11 @@ public class NamesrvStartup {
         main0(args);
     }
 
+    /**
+     * 实例运行
+     * @param args
+     * @return
+     */
     public static NamesrvController main0(String[] args) {
         System.setProperty(RemotingCommand.RemotingVersionKey, Integer.toString(MQVersion.CurrentVersion));
 
